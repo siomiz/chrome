@@ -1,25 +1,23 @@
 FROM ubuntu:14.04
 
-# enable multiverse for flashplugin-nonfree
-RUN sed -ri '/multiverse/s/^# //' /etc/apt/sources.list
+MAINTAINER Tomohisa Kusano <siomiz@gmail.com>
 
 RUN apt-get update \
 	&& DEBIAN_FRONTEND=noninteractive \
 	apt-get install -y \
-	x11vnc \
-	xvfb \
-	# fonts-takao \
+	ca-certificates \
 	gconf-service \
-	libgconf-2-4 \
 	libappindicator1 \
-	xdg-utils \
 	libasound2 \
+	libcurl3 \
+	libgconf-2-4 \
 	libnspr4 \
 	libnss3 \
 	libpango1.0-0 \
-	ca-certificates \
-	libcurl3 \
-	wget
+	wget \
+	x11vnc \
+	xdg-utils \
+	xvfb
 
 ADD https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb /chrome.deb
 
