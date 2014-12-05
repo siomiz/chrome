@@ -34,5 +34,5 @@ ENTRYPOINT ["/entrypoint.sh"]
 
 EXPOSE 5900
 
-CMD ["x11vnc", "-display", ":1", "-nopw", "-ncache", "10"]
+CMD ["x11vnc", "-display", ":1", "-nopw", "-ncache", "10", "-forever"]
 
