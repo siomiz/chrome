@@ -18,11 +18,12 @@ RUN apt-get update \
 	wget \
 	x11vnc \
 	xdg-utils \
-	xvfb
+	xvfb \
+	&& rm -rf /var/lib/apt/lists/*
 
 ADD https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb /chrome.deb
 
-RUN dpkg -i /chrome.deb
+RUN dpkg -i /chrome.deb && rm /chrome.deb
 
 RUN ln -s /lib/x86_64-linux-gnu/libudev.so.1 /lib/x86_64-linux-gnu/libudev.so.0
 
