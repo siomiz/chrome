@@ -15,6 +15,7 @@ RUN apt-get update \
 	libnspr4 \
 	libnss3 \
 	libpango1.0-0 \
+	supervisor \
 	wget \
 	x11vnc \
 	xdg-utils \
@@ -27,12 +28,9 @@ RUN dpkg -i /chrome.deb && rm /chrome.deb
 
 RUN ln -s /lib/x86_64-linux-gnu/libudev.so.1 /lib/x86_64-linux-gnu/libudev.so.0
 
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-
-ENTRYPOINT ["/entrypoint.sh"]
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 EXPOSE 5900
 
-CMD ["x11vnc", "-display", ":1", "-nopw", "-wait", "5", "-forever"]
+CMD ["/usr/bin/supervisord"]
 
