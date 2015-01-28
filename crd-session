@@ -1,0 +1,1 @@
+exec /opt/google/chrome/chrome --no-sandbox --window-position=0,0 --window-size=1024,768

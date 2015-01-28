@@ -16,6 +16,7 @@ RUN apt-get update \
 	libnspr4 \
 	libnss3 \
 	libpango1.0-0 \
+	pulseaudio \
 	python-psutil \
 	supervisor \
 	wget \
@@ -34,14 +35,13 @@ RUN ln -s /lib/x86_64-linux-gnu/libudev.so.1 /lib/x86_64-linux-gnu/libudev.so.0
 
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-RUN addgroup chrome-remote-desktop && useradd -m -G chrome-remote-desktop chrome
+RUN addgroup chrome-remote-desktop && useradd -m -G chrome-remote-desktop,pulse-access chrome
 ENV CHROME_REMOTE_DESKTOP_DEFAULT_DESKTOP_SIZES 1024x768
 
-RUN echo "#!/bin/bash\nsudo -E -u chrome -H /usr/bin/python /opt/google/chrome-remote-desktop/chrome-remote-desktop --start --foreground --config=\`ls /home/chrome/.config/chrome-remote-desktop/*.json | head -1\`" \ 
-		> crdonly \
-	&& chmod +x /crdonly \
-	&& echo "exec /opt/google/chrome/chrome --no-sandbox --window-position=0,0 --window-size=1024,768" \
-		> /home/chrome/.chrome-remote-desktop-session
+ADD crdonly /crdonly
+RUN chmod +x /crdonly
+
+ADD crd-session /crd-session
 
 VOLUME ["/home/chrome"]
 

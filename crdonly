@@ -1,0 +1,4 @@
+#!/bin/bash
+cp /crd-session /home/chrome/.chrome-remote-desktop-session
+sudo -u chrome pulseaudio --start
+sudo -E -u chrome -H /usr/bin/python /opt/google/chrome-remote-desktop/chrome-remote-desktop --start --foreground --config=`ls /home/chrome/.config/chrome-remote-desktop/*.json | head -1`
