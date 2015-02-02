@@ -1,4 +1,7 @@
 #!/bin/bash
 cp /crd-session /home/chrome/.chrome-remote-desktop-session
-sudo -u chrome pulseaudio --start
-sudo -E -u chrome -H /usr/bin/python /opt/google/chrome-remote-desktop/chrome-remote-desktop --start --foreground --config=`ls /home/chrome/.config/chrome-remote-desktop/*.json | head -1`
+ln -s /home/chrome/.config/chrome-remote-desktop/host#*.json /home/chrome/.config/chrome-remote-desktop/host##.json
+/usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord-crdonly.conf
+
+# g_host_hash = hashlib.md5(socket.gethostname()).hexdigest()
+#  options.config = os.path.join(CONFIG_DIR, "host#%s.json" % g_host_hash)

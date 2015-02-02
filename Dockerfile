@@ -34,6 +34,7 @@ RUN dpkg -i /chrome.deb && dpkg -i /crd.deb && rm /chrome.deb /crd.deb
 RUN ln -s /lib/x86_64-linux-gnu/libudev.so.1 /lib/x86_64-linux-gnu/libudev.so.0
 
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY supervisord-crdonly.conf /etc/supervisor/conf.d/supervisord-crdonly.conf
 
 RUN addgroup chrome-remote-desktop && useradd -m -G chrome-remote-desktop,pulse-access chrome
 ENV CHROME_REMOTE_DESKTOP_DEFAULT_DESKTOP_SIZES 1024x768
@@ -47,5 +48,5 @@ VOLUME ["/home/chrome"]
 
 EXPOSE 5900
 
-CMD ["/usr/bin/supervisord"]
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
 
