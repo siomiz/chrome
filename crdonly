@@ -1,7 +1,19 @@
 #!/bin/bash
-cp /crd-session /home/chrome/.chrome-remote-desktop-session
-ln -s /home/chrome/.config/chrome-remote-desktop/host#*.json /home/chrome/.config/chrome-remote-desktop/host##.json
-/usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord-crdonly.conf
 
-# g_host_hash = hashlib.md5(socket.gethostname()).hexdigest()
-#  options.config = os.path.join(CONFIG_DIR, "host#%s.json" % g_host_hash)
+# make sure to install a new version of ~/.chrome-remote-desktop-session
+# where ~ is a volume
+cp /crd-session /home/chrome/.chrome-remote-desktop-session
+
+# delete obsolete pulseaudio sockets if left from previous sessions
+rm -rf /home/chrome/.config/chrome-remote-desktop/pulseaudio*
+
+# only keep 1 host#*.json config file
+# (default is to use md5 of hostname, which changes on every docker run)
+if test -n "$(find /home/chrome/.config/chrome-remote-desktop -name 'host#*.json' -print -quit)"
+then
+	mv `ls -t /home/chrome/.config/chrome-remote-desktop/host#*.json | head -n 1` /home/chrome/.config/chrome-remote-desktop/~host.json
+	rm /home/chrome/.config/chrome-remote-desktop/host#*.json
+fi
+
+# start supervisor to watch `chrome-remote-desktop` only
+/usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord-crdonly.conf
