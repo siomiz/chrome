@@ -13,6 +13,7 @@ RUN apt-key add /tmp/linux_signing_key.pub \
 	&& apt-get install -y \
 	google-chrome-stable \
 	chrome-remote-desktop \
+	fonts-takao \
 	pulseaudio \
 	supervisor \
 	&& apt-get clean \
