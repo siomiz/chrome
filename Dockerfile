@@ -18,7 +18,8 @@ RUN apt-key add /tmp/linux_signing_key.pub \
 	&& rm -rf /var/lib/apt/* /var/lib/dpkg/* \
 	/var/cache/* /var/log/apt/* /tmp/* \
 	&& addgroup chrome-remote-desktop \
-	&& useradd -m -G chrome-remote-desktop,pulse-access chrome
+	&& useradd -m -G chrome-remote-desktop,pulse-access chrome \
+	&& chmod +x /crdonly
 
 VOLUME ["/home/chrome"]
 
