@@ -14,7 +14,7 @@ RUN apt-key add /tmp/linux_signing_key.pub \
 	google-chrome-stable \
 	chrome-remote-desktop \
 	pulseaudio \
-	supervisord \
+	supervisor \
 	&& apt-get clean \
 	&& rm -rf /var/lib/apt/* /var/lib/dpkg/* \
 	/var/cache/* /var/log/apt/* /tmp/* \
