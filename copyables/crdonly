@@ -7,6 +7,9 @@ cp /crd-session /home/chrome/.chrome-remote-desktop-session
 # delete obsolete pulseaudio sockets if left from previous sessions
 rm -rf /home/chrome/.config/chrome-remote-desktop/pulseaudio*
 
+# delete .Xauthority files possibly owned by root
+rm -rf /home/chrome/.Xauthority*
+
 # only keep 1 host#*.json config file
 # (default is to use md5 of hostname, which changes on every docker run)
 if test -n "$(find /home/chrome/.config/chrome-remote-desktop -name 'host#*.json' -print -quit)"

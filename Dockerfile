@@ -16,9 +16,9 @@ RUN apt-key add /tmp/linux_signing_key.pub \
 	fonts-takao \
 	pulseaudio \
 	supervisor \
+	x11vnc \
 	&& apt-get clean \
-	&& rm -rf /var/lib/apt/* /var/lib/dpkg/* \
-	/var/cache/* /var/log/apt/* /tmp/* \
+	&& rm -rf /var/cache/* /var/log/apt/* /tmp/* \
 	&& addgroup chrome-remote-desktop \
 	&& useradd -m -G chrome-remote-desktop,pulse-access chrome \
 	&& chmod +x /crdonly
