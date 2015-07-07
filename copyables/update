@@ -1,0 +1,18 @@
+#!/bin/bash
+set -e
+
+apt-get update -qq \
+	-o Dir::Etc::sourcelist="sources.list.d/google-chrome.list" \
+	-o Dir::Etc::sourceparts="-" \
+	-o API::Get::List-Cleanup="0"
+
+for pkg in "google-chrome-stable"; do
+
+        IFS=": " read -r p i iv c cv x <<< $(apt-cache policy $pkg)
+
+        if [ "$iv" != "$cv" ]; then
+                apt-get install --only-upgrade -y -qq $pkg
+                echo $pkg upgraded to $cv
+        fi
+
+done
