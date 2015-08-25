@@ -36,7 +36,7 @@ Usage
 On first connection (and after an "unclean" container stop) you will get a "Profile Locked / owned by different process" dialog, which you can just select "Relaunch".
 
 Docker ホスト(ヘッドレス可！)で走らせれば、「艦これ」等 Flash ブラウザゲームを iPad/iPhone/Android 等上の Chrome リモート デスクトップ アプリで一応プレイ可能になります。サウンド付き(遅延があります)。
-Chrome は英語版ですが、Web ページ用の日本語フォントは含まれています。
+Chrome は英語版ですが、Web ページ用の日本語フォントは含まれています。[詳しくはこちら。][3]
 
 Chrome Updates
 --
@@ -44,3 +44,4 @@ It is recommended to `docker pull siomiz/chrome` and restart the container once 
 
   [1]: https://www.google.com/intl/en/chrome/browser/privacy/eula_text.html
   [2]: https://code.google.com/p/chromium/issues/detail?id=490964
+  [3]: https://github.com/siomiz/chrome/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E
