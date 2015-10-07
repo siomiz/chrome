@@ -1,4 +1,4 @@
-FROM ubuntu:14.04
+FROM siomiz/ubuntu-xvd
 
 MAINTAINER Tomohisa Kusano <siomiz@gmail.com>
 
@@ -23,7 +23,9 @@ RUN apt-key add /tmp/linux_signing_key.pub \
 	&& useradd -m -G chrome-remote-desktop,pulse-access chrome \
 	&& ln -s /crdonly /usr/local/sbin/crdonly \
 	&& ln -s /update /usr/local/sbin/update \
-	&& ln -s /update /etc/cron.hourly/update
+	&& ln -s /update /etc/cron.hourly/update \
+	&& ln -s /usr/bin/Xorg /usr/bin/Xvfb-randr \
+	&& patch -d /opt/google/chrome-remote-desktop -p0 < /crd-xvd.patch
 
 VOLUME ["/home/chrome"]
 

@@ -1,0 +1,23 @@
+--- chrome-remote-desktop.dist	2015-10-07 20:47:34.445286514 +0000
++++ chrome-remote-desktop	2015-10-07 20:48:03.121919734 +0000
+@@ -385,7 +385,6 @@
+          "-auth", x_auth_file,
+          "-nolisten", "tcp",
+          "-noreset",
+-         "-screen", "0", screen_option
+         ] + extra_x_args)
+     if not self.x_proc.pid:
+       raise Exception("Could not start Xvfb.")
+@@ -433,10 +432,7 @@
+     # dimensions from the "-screen" option.
+     for width, height in self.sizes:
+       label = "%dx%d" % (width, height)
+-      args = ["xrandr", "--newmode", label, "0", str(width), "0", "0", "0",
+-              str(height), "0", "0", "0"]
+-      subprocess.call(args, env=self.child_env, stdout=devnull, stderr=devnull)
+-      args = ["xrandr", "--addmode", "screen", label]
++      args = ["xrandr", "--fb", label]
+       subprocess.call(args, env=self.child_env, stdout=devnull, stderr=devnull)
+ 
+     # Set the initial mode to the first size specified, otherwise the X server
+
