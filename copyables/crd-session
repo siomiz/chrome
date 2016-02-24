@@ -1,1 +1,1 @@
-exec /opt/google/chrome/chrome --no-sandbox --window-position=0,0 --window-size=1024,768 --force-device-scale-factor=1
+exec /opt/google/chrome/chrome --no-sandbox --start-maximized --window-position=0,0 --force-device-scale-factor=1 --no-default-browser-check
