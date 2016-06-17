@@ -1,6 +1,5 @@
  - Screen size is currently hardcoded as 1024x768.
- - [NEW] "update" command is available and automatically running hourly in "crdonly" mode. This upgrades google-chrome-stable, which gets into effect when you exit and relaunch Chrome.
-
+ - A testing branch for [RandR](https://en.wikipedia.org/wiki/RandR) (i.e. "Resize desktop to fit" in CRD client) is available; Use Docker image tag **:randr**.
 
 Google Chrome via VNC
 ==
@@ -19,7 +18,7 @@ Much faster than VNC thanks to VP8!
 
 No "desktop"; session goes straight to a maximized chrome.
 
-Prerequisites: Create a Profile Volume
+Prerequisite: Create a Profile Volume
 --
 You need a VNC client for the initial setup. 
 
