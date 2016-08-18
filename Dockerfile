@@ -23,7 +23,9 @@ RUN apt-key add /tmp/linux_signing_key.pub \
 	&& useradd -m -G chrome-remote-desktop,pulse-access chrome \
 	&& ln -s /crdonly /usr/local/sbin/crdonly \
 	&& ln -s /update /usr/local/sbin/update \
-	&& ln -s /update /etc/cron.hourly/update
+	&& ln -s /update /etc/cron.hourly/update \
+	&& mkdir -p /home/chrome/.config/chrome-remote-desktop \
+	&& chown -R chrome:chrome /home/chrome/.config
 
 VOLUME ["/home/chrome"]
 

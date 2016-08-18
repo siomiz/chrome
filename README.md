@@ -27,6 +27,8 @@ You need a VNC client for the initial setup.
  3. Install the "Chrome Remote Desktop" Chrome extension via VNC and activate it, authorize it, and My Computers > Enable Remote Connections, then set a PIN. (Google Account required)
  4. `docker stop chrome-profile`
 
+(Technically the only config file CRD uses is `/home/chrome/.config/chrome-remote-desktop/~host.json` which includes OAuth token and private key.)
+
 Usage
 --
 `docker run -d --volumes-from chrome-profile siomiz/chrome /crdonly` (no port needs to be exposed)
