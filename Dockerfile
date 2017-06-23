@@ -7,6 +7,7 @@ ENV CHROME_REMOTE_DESKTOP_DEFAULT_DESKTOP_SIZES 1024x768
 COPY copyables /
 
 ADD https://dl.google.com/linux/linux_signing_key.pub /tmp/
+ADD https://launchpad.net/ubuntu/+archive/primary/+files/libgcrypt11_1.5.3-2ubuntu4.4_amd64.deb /tmp/
 
 RUN apt-key add /tmp/linux_signing_key.pub \
 	&& apt-get update \
@@ -17,6 +18,7 @@ RUN apt-key add /tmp/linux_signing_key.pub \
 	pulseaudio \
 	supervisor \
 	x11vnc \
+	&& dpkg -i /tmp/libgcrypt11_*.deb \
 	&& apt-get clean \
 	&& rm -rf /var/cache/* /var/log/apt/* /tmp/* \
 	&& addgroup chrome-remote-desktop \
