@@ -1,1 +1,2 @@
+rm -rf /home/chrome/.config/chrome-remote-desktop/chrome-profile/Singleton*
 exec /opt/google/chrome/chrome --no-sandbox --window-position=0,0 --window-size=1024,768 --force-device-scale-factor=1

@@ -2,8 +2,6 @@ FROM ubuntu:16.04
 
 MAINTAINER Tomohisa Kusano <siomiz@gmail.com>
 
-ENV CHROME_REMOTE_DESKTOP_DEFAULT_DESKTOP_SIZES 1024x768
-
 COPY copyables /
 
 ADD https://dl.google.com/linux/linux_signing_key.pub /tmp/
@@ -18,15 +16,24 @@ RUN apt-key add /tmp/linux_signing_key.pub \
 	pulseaudio \
 	supervisor \
 	x11vnc \
+	fluxbox \
 	&& dpkg -i /tmp/libgcrypt11_*.deb \
 	&& apt-get clean \
-	&& rm -rf /var/cache/* /var/log/apt/* /tmp/* \
+	&& rm -rf /var/cache/* /var/log/apt/* /var/lib/apt/lists/* /tmp/* \
 	&& addgroup chrome-remote-desktop \
 	&& useradd -m -G chrome-remote-desktop,pulse-access chrome \
 	&& ln -s /crdonly /usr/local/sbin/crdonly \
 	&& ln -s /update /usr/local/sbin/update \
 	&& mkdir -p /home/chrome/.config/chrome-remote-desktop \
-	&& chown -R chrome:chrome /home/chrome/.config
+	&& chown -R chrome:chrome /home/chrome/.config \
+	&& mkdir -p /home/chrome/.fluxbox \
+	&& echo $' \n\
+		session.screen0.defaultDeco: NONE \n\
+		session.screen0.toolbar.visible: NONE \n\
+		session.screen0.fullMaximization: true \n\
+		session.screen0.maxDisableResize: true \n\
+		session.screen0.maxDisableMove: true \n\
+	' >> /home/chrome/.fluxbox/init
 
 VOLUME ["/home/chrome"]
 

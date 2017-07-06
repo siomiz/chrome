@@ -1,12 +1,11 @@
- - Screen size is currently hardcoded as 1024x768.
- - A testing branch for [RandR](https://en.wikipedia.org/wiki/RandR) (i.e. "Resize desktop to fit" in CRD client) is available; Use Docker image tag **:randr**.
+ - The testing branch for [RandR](https://en.wikipedia.org/wiki/RandR) (i.e. "Resize desktop to fit" in CRD client) is merged into master/latest.
 
 Google Chrome via VNC
 ==
 `docker run -p 127.0.0.1:5900:5900 siomiz/chrome`
 
  - Google Chrome, not Chromium, for the ease of Flash plugin management
- - on Xvfb
+ - on Xvfb, with FluxBox (no window decorations)
  - served by X11VNC (no password; assuming usage via SSH)
 
 Must agree to [Google Chrome ToS][1] to use.
@@ -16,11 +15,9 @@ Google Chrome via Chrome Remote Desktop
 ... so you can use the full Google Chrome with Flash on iPad (with preliminary sound support)!
 Much faster than VNC thanks to VP8!
 
-No "desktop"; session goes straight to a maximized chrome.
-
 Prerequisite: Create a Profile Volume
 --
-You need a VNC client for the initial setup. 
+You need a VNC client for the initial setup.
 
  1. `docker run -d --name chrome-profile siomiz/chrome` (NO password so DO NOT simply use -p 5900:5900 to expose it to the world!)
  2. Connect to the container via VNC. Find the container's IP address by `docker inspect -f '{{ .NetworkSettings.IPAddress }}' chrome-profile`
@@ -33,8 +30,6 @@ Usage
 --
 `docker run -d --volumes-from chrome-profile siomiz/chrome /crdonly` (no port needs to be exposed)
 `/crdonly` command will run chrome-remote-desktop in foreground.
-
-On first connection (and after an "unclean" container stop) you will get a "Profile Locked / owned by different process" dialog, which you can just select "Relaunch".
 
 Docker ホスト(ヘッドレス可！)で走らせれば、「艦これ」等 Flash ブラウザゲームを iPad/iPhone/Android 等上の Chrome リモート デスクトップ アプリで一応プレイ可能になります。サウンド付き(遅延があります)。
 Chrome は英語版ですが、Web ページ用の日本語フォントは含まれています。[詳しくはこちら。][3]
