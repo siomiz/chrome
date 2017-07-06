@@ -26,12 +26,12 @@ RUN apt-key add /tmp/linux_signing_key.pub \
 	&& ln -s /update /usr/local/sbin/update \
 	&& mkdir -p /home/chrome/.config/chrome-remote-desktop \
 	&& mkdir -p /home/chrome/.fluxbox \
-	&& echo $' \n\
-		session.screen0.defaultDeco: NONE \n\
-		session.screen0.toolbar.visible: NONE \n\
-		session.screen0.fullMaximization: true \n\
-		session.screen0.maxDisableResize: true \n\
-		session.screen0.maxDisableMove: true \n\
+	&& echo ' \n\
+		session.screen0.toolbar.visible:        false
+		session.screen0.fullMaximization:       true
+		session.screen0.maxDisableResize:       true
+		session.screen0.maxDisableMove: true
+		session.screen0.defaultDeco:    NONE
 	' >> /home/chrome/.fluxbox/init \
 	&& chown -R chrome:chrome /home/chrome/.config /home/chrome/.fluxbox
 
