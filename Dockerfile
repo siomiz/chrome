@@ -25,7 +25,6 @@ RUN apt-key add /tmp/linux_signing_key.pub \
 	&& ln -s /crdonly /usr/local/sbin/crdonly \
 	&& ln -s /update /usr/local/sbin/update \
 	&& mkdir -p /home/chrome/.config/chrome-remote-desktop \
-	&& chown -R chrome:chrome /home/chrome/.config \
 	&& mkdir -p /home/chrome/.fluxbox \
 	&& echo $' \n\
 		session.screen0.defaultDeco: NONE \n\
@@ -33,7 +32,8 @@ RUN apt-key add /tmp/linux_signing_key.pub \
 		session.screen0.fullMaximization: true \n\
 		session.screen0.maxDisableResize: true \n\
 		session.screen0.maxDisableMove: true \n\
-	' >> /home/chrome/.fluxbox/init
+	' >> /home/chrome/.fluxbox/init \
+	&& chown -R chrome:chrome /home/chrome/.config /home/chrome/.fluxbox
 
 VOLUME ["/home/chrome"]
 
