@@ -5,7 +5,6 @@ MAINTAINER Tomohisa Kusano <siomiz@gmail.com>
 COPY copyables /
 
 ADD https://dl.google.com/linux/linux_signing_key.pub /tmp/
-ADD https://launchpad.net/ubuntu/+archive/primary/+files/libgcrypt11_1.5.3-2ubuntu4.4_amd64.deb /tmp/
 
 RUN apt-key add /tmp/linux_signing_key.pub \
 	&& apt-get update \
@@ -17,7 +16,6 @@ RUN apt-key add /tmp/linux_signing_key.pub \
 	supervisor \
 	x11vnc \
 	fluxbox \
-	&& dpkg -i /tmp/libgcrypt11_*.deb \
 	&& apt-get clean \
 	&& rm -rf /var/cache/* /var/log/apt/* /var/lib/apt/lists/* /tmp/* \
 	&& addgroup chrome-remote-desktop \
@@ -27,16 +25,18 @@ RUN apt-key add /tmp/linux_signing_key.pub \
 	&& mkdir -p /home/chrome/.config/chrome-remote-desktop \
 	&& mkdir -p /home/chrome/.fluxbox \
 	&& echo ' \n\
-		session.screen0.toolbar.visible:        false
-		session.screen0.fullMaximization:       true
-		session.screen0.maxDisableResize:       true
-		session.screen0.maxDisableMove: true
-		session.screen0.defaultDeco:    NONE
+		session.screen0.toolbar.visible:        false\n\
+		session.screen0.fullMaximization:       true\n\
+		session.screen0.maxDisableResize:       true\n\
+		session.screen0.maxDisableMove: true\n\
+		session.screen0.defaultDeco:    NONE\n\
 	' >> /home/chrome/.fluxbox/init \
 	&& chown -R chrome:chrome /home/chrome/.config /home/chrome/.fluxbox
 
 VOLUME ["/home/chrome"]
 
 EXPOSE 5900
+
+ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
