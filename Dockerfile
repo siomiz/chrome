@@ -1,6 +1,6 @@
 FROM ubuntu:16.04
 
-MAINTAINER Tomohisa Kusano <siomiz@gmail.com>
+LABEL maintainer="Tomohisa Kusano <siomiz@gmail.com>"
 
 COPY copyables /
 
@@ -18,8 +18,8 @@ RUN apt-key add /tmp/linux_signing_key.pub \
 	fluxbox \
 	&& apt-get clean \
 	&& rm -rf /var/cache/* /var/log/apt/* /var/lib/apt/lists/* /tmp/* \
-	&& addgroup chrome-remote-desktop \
 	&& useradd -m -G chrome-remote-desktop,pulse-access chrome \
+	&& usermod -s /bin/bash chrome \
 	&& ln -s /crdonly /usr/local/sbin/crdonly \
 	&& ln -s /update /usr/local/sbin/update \
 	&& mkdir -p /home/chrome/.config/chrome-remote-desktop \
