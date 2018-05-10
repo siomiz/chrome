@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 
 LABEL maintainer="Tomohisa Kusano <siomiz@gmail.com>"
 
@@ -6,9 +6,12 @@ COPY copyables /
 
 ADD https://dl.google.com/linux/linux_signing_key.pub /tmp/
 
-RUN apt-key add /tmp/linux_signing_key.pub \
+RUN apt-get update || true \
+        && apt-get install -y gnupg \
+        && apt-key add /tmp/linux_signing_key.pub \
 	&& apt-get update \
-	&& apt-get install -y \
+	&& DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true \
+        apt-get install -y \
 	google-chrome-stable \
 	chrome-remote-desktop \
 	fonts-takao \
