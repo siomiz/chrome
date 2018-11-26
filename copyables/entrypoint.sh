@@ -22,4 +22,10 @@ if [[ "$VNC_PASSWORD" != "" ]]; then
   export X11VNC_AUTH="-passwd $VNC_PASSWORD"
 fi
 
+# set sizes for both VNC screen & Chrome window
+: ${VNC_SCREEN_SIZE:='1024x768'}
+IFS='x' read SCREEN_WIDTH SCREEN_HEIGHT <<< "${VNC_SCREEN_SIZE}"
+export VNC_SCREEN="${SCREEN_WIDTH}x${SCREEN_HEIGHT}x24"
+export CHROME_WINDOW_SIZE="${SCREEN_WIDTH},${SCREEN_HEIGHT}"
+
 exec "$@"
