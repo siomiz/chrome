@@ -1,2 +1,2 @@
 rm -rf /home/chrome/.config/chrome-remote-desktop/chrome-profile/Singleton*
-exec /opt/google/chrome/chrome --no-sandbox --start-maximized --force-device-scale-factor=1 --use-system-title-bar
+exec /opt/google/chrome/chrome --no-sandbox --start-maximized --force-device-scale-factor=1 --use-system-title-bar ${CHROME_OPTS}
