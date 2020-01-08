@@ -10,7 +10,7 @@ RUN apt-get update \
 	&& apt-get install -y --no-install-recommends \
 	gdebi \
 	gnupg2 \
-	fonts-takao \
+	fonts-noto-cjk \
 	pulseaudio \
 	supervisor \
 	x11vnc \
