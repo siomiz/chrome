@@ -9,6 +9,7 @@ usermod -o -u "$PUID" chrome
 
 chown -R chrome:chrome /output
 chown -R chrome:chrome /home/chrome
+chown chrome /var/spool/cron/crontab/chrome
 
 # VNC default no password
 export X11VNC_AUTH="-nopw"
