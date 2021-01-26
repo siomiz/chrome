@@ -1,6 +1,15 @@
 #!/bin/bash
 set -e
 
+PUID=${PUID:-911}
+PGID=${PGID:-911}
+
+groupmod -o -g "$PGID" chrome
+usermod -o -u "$PUID" chrome
+
+chown -R /output
+chown -R /home/chrome
+
 # VNC default no password
 export X11VNC_AUTH="-nopw"
 

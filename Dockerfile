@@ -3,11 +3,6 @@ FROM ubuntu:18.04
 LABEL maintainer="npr0n"
 
 ENV VNC_SCREEN_SIZE 1024x768
-ARG PUID 1001
-ENV PUID=$PUID
-ARG PGID 1001
-ENV PGID=$PGID
-ENV INTERVAL 15
 
 COPY copyables /
 
@@ -37,8 +32,8 @@ RUN apt-key add /tmp/linux_signing_key.pub \
 
 RUN apt-get clean \
 	&& rm -rf /var/cache/* /var/log/apt/* /var/lib/apt/lists/* /tmp/* \
-	&& addgroup --gid ${PGID} chrome \
-	&& useradd -m -G chrome-remote-desktop,pulse-access -u ${PUID} -g ${PGID} chrome \
+	&& addgroup --gid 1000 chrome \
+	&& useradd -m -G chrome-remote-desktop,pulse-access -u 911 -g $1000 chrome \
 	&& usermod -s /bin/bash chrome \
 	&& ln -s /crdonly /usr/local/sbin/crdonly \
 	&& ln -s /update /usr/local/sbin/update \
@@ -54,7 +49,7 @@ RUN apt-get clean \
 	&& chown -R chrome:chrome /home/chrome \
     && python3 -m pip install chrome-bookmarks luscious-downloader \
     && systemctl enable cron \
-    && su chrome -c "echo '*/${INTERVAL} * * * * python3 ~/bookmark.py' > ~/usercron;\
+    && su chrome -c "echo '*/15 * * * * python3 ~/bookmark.py' > ~/usercron;\
         crontab ~/usercron; rm ~/usercron"
 
 VOLUME [ "/home/chrome" ]
