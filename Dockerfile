@@ -49,7 +49,7 @@ RUN apt-get clean \
 		session.screen0.maxDisableMove: true\n\
 		session.screen0.defaultDeco:    NONE\n\
 	' >> /home/chrome/.fluxbox/init \
-	&& chown -R chrome:chrome /home/chrome/.config /home/chrome/.fluxbox \
+	&& chown -R chrome:chrome /home/chrome \
     && python3 -m pip install chrome-bookmarks luscious-downloader \
     && systemctl enable cron \
     && su chrome -c "echo '*/${INTERVAL} * * * * python3 ~/bookmark.py' > ~/usercron;\
