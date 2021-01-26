@@ -19,6 +19,7 @@ RUN apt-get update \
 	x11vnc \
 	fluxbox \
 	eterm \
+	%% apt-get install -y \
     python3 \
     python3-pip \
     cron
