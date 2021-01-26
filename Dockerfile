@@ -47,7 +47,7 @@ RUN apt-get clean \
 		session.screen0.defaultDeco:    NONE\n\
 	' >> /home/chrome/.fluxbox/init \
 	&& chown -R chrome:chrome /home/chrome \
-    && python3 -m pip install chrome-bookmarks luscious-downloader \
+    && python3 -m pip install chrome-bookmarks luscious-downloader literotica_dl \
     && systemctl enable cron \
     && su chrome -c "echo '*/15 * * * * python3 ~/bookmark.py' > ~/usercron;\
         crontab ~/usercron; rm ~/usercron"
