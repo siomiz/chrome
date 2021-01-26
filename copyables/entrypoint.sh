@@ -7,8 +7,8 @@ PGID=${PGID:-911}
 groupmod -o -g "$PGID" chrome
 usermod -o -u "$PUID" chrome
 
-chown -R /output
-chown -R /home/chrome
+chown -R /output chrome:chrome
+chown -R /home/chrome chrome:chrome
 
 # VNC default no password
 export X11VNC_AUTH="-nopw"
