@@ -1,8 +1,11 @@
 FROM ubuntu:18.04
 
-LABEL maintainer="Tomohisa Kusano <siomiz@gmail.com>"
+LABEL maintainer="npr0n"
 
 ENV VNC_SCREEN_SIZE 1024x768
+ENV PUID 1000
+ENV PGID 1000
+ENV INTERVAL 15
 
 COPY copyables /
 
@@ -15,7 +18,10 @@ RUN apt-get update \
 	supervisor \
 	x11vnc \
 	fluxbox \
-	eterm
+	eterm \
+    python3 \
+    python3-pip \
+    cron
 
 ADD https://dl.google.com/linux/linux_signing_key.pub \
 	https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
@@ -28,7 +34,7 @@ RUN apt-key add /tmp/linux_signing_key.pub \
 
 RUN apt-get clean \
 	&& rm -rf /var/cache/* /var/log/apt/* /var/lib/apt/lists/* /tmp/* \
-	&& useradd -m -G chrome-remote-desktop,pulse-access chrome \
+	&& useradd -m -G chrome-remote-desktop,pulse-access -u $PUID -g $PGID chrome \
 	&& usermod -s /bin/bash chrome \
 	&& ln -s /crdonly /usr/local/sbin/crdonly \
 	&& ln -s /update /usr/local/sbin/update \
@@ -41,9 +47,16 @@ RUN apt-get clean \
 		session.screen0.maxDisableMove: true\n\
 		session.screen0.defaultDeco:    NONE\n\
 	' >> /home/chrome/.fluxbox/init \
-	&& chown -R chrome:chrome /home/chrome/.config /home/chrome/.fluxbox
+	&& chown -R chrome:chrome /home/chrome/.config /home/chrome/.fluxbox \
+    && python3 -m pip install chrome-bookmarks luscious-downloader \
+    && systemctl enable cron \
+    && su chrome -c "echo '*/${INTERVAL} * * * * python3 ~/bookmark.py' > ~/usercron;\
+        crontab ~/usercron; rm ~/usercron; curl -sSL https://raw.githubusercontent.com/npr0n/luscious-bookmark-dl/master/bookmark.py \
+        > ~/bookmark.py"
 
-VOLUME ["/home/chrome"]
+VOLUME [ "/home/chrome" ]
+
+VOLUME [ "/output" ]
 
 EXPOSE 5900
 
