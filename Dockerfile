@@ -51,8 +51,7 @@ RUN apt-get clean \
     && python3 -m pip install chrome-bookmarks luscious-downloader \
     && systemctl enable cron \
     && su chrome -c "echo '*/${INTERVAL} * * * * python3 ~/bookmark.py' > ~/usercron;\
-        crontab ~/usercron; rm ~/usercron; curl -sSL https://raw.githubusercontent.com/npr0n/luscious-bookmark-dl/master/bookmark.py \
-        > ~/bookmark.py"
+        crontab ~/usercron; rm ~/usercron"
 
 VOLUME [ "/home/chrome" ]
 
