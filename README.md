@@ -1,3 +1,48 @@
+I was tired of not being able to queue downloads from my iPad while "discovering" new content. This container runs a full Chrome browser on a Ubuntu
+base. This is because it is the easiest way to sync bookmarks from all connected browsers in real time.
+
+What this does:
+- Starts a VNC server for initial setup. Currently also prepares Chrome Remote Desktop.
+- Scans all bookmarks for certain patterns every 15 minutes via cronjob.
+- If a matching url is found, the downloader does the real magic.
+- Outputs to /output/literotica and /output/luscious respectively.
+
+This image supports PGID and PUID as ENV, so your output is nice and tidy!
+
+For persistent login data I recommend manually mounting /home/chrome !
+
+Example:
+<pre><code>docker run -d \
+--name=bookmark-dl \
+-p 5900:5900 \
+-v bookmark-dl-conf:/home/chrome \
+-v bookmark-dl-output:/output \
+-e PUID=1000 \
+-e PGID=1000 \
+--restart unless-stopped \
+npr0n/bookmark-dl
+</code></pre>
+
+To be done:
+
+- add TZ env variable
+- make image smaller
+- add VNC HTML support for setup
+- add support for more pages?
+
+
+Currently this Image uses:
+`ubuntu:18.04` - Base image
+[`siomiz/chrome`](https://hub.docker.com/r/siomiz/chrome/) - basic functionality, forked for slimming (TBD)
+[`fuzzyfiend/literotica_dl`](https://github.com/fuzzyfiend/literotica_dl) - downloader for literotica
+[`Lucas8x/luscious-downloader`](https://github.com/Lucas8x/luscious-downloader) - downloader for luscious
+
+
+
+
+Until this is much further I will keep siomiz' ReadMe intact:
+###############################################################
+
  - The testing branch for [RandR](https://en.wikipedia.org/wiki/RandR) (i.e. "Resize desktop to fit" in CRD client) is merged into master/latest.
 
 Google Chrome via VNC
