@@ -49,7 +49,7 @@ RUN apt-get clean \
 	&& chown -R chrome:chrome /home/chrome \
     && python3 -m pip install chrome-bookmarks luscious-downloader literotica_dl \
     && systemctl enable cron \
-    && su chrome -c "echo '*/15 * * * * python3 ~/bookmark.py' > ~/usercron;\
+    && su chrome -c "echo '*/15 * * * * python3 /bookmark.py' > ~/usercron;\
         crontab ~/usercron; rm ~/usercron"
 
 VOLUME [ "/home/chrome" ]
