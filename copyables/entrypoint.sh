@@ -3,13 +3,48 @@ set -e
 
 PUID=${PUID:-911}
 PGID=${PGID:-911}
+export OUTPUT=${OUTPUT:-"/output"}
+export OUT_LUSCIOUS=${OUT_LUSCIOUS:-"/output/luscious"}
+export OUT_LITEROTICA=${OUT_LITEROTICA:-"/output/literotica"}
+export JD_USER=$JD_USER:-""}
+export JD_PASS=${JD_PASS:-""}
+export JD_DEVICE=${JD_DEVICE:-""}
+export ENABLE_JD=${ENABLE_JD:-true}
+export ENABLE_LOG=${ENABLE_LOG:-true}
+ENABLE_VNC=${ENABLE_VNC:-false}
 
+# set uid and gid
 groupmod -o -g "$PGID" chrome
 usermod -o -u "$PUID" chrome
 
+# redo permissions
 chown -R chrome:chrome /output
 chown -R chrome:chrome /home/chrome
-chown chrome /var/spool/cron/crontab/chrome
+chown chrome /var/spool/cron/crontabs/chrome
+
+# start cron
+service cron start
+
+# if VNC is enabled, copy correct supervisord.conf
+if [ "$ENABLE_VNC" = "true" ] ; then
+  echo 'VNC is enabled'
+else
+  echo 'VNC is disabled'
+  cp /etc/supervisor/conf.d/supervisord-novnc.conf /etc/supervisor/conf.d/supervisord.conf
+fi
+
+# echo if JD and LOG are enabled
+if [ "$ENABLE_JD" = "true" ] ; then
+  echo 'MyJDownloader is enabled'
+else
+  echo 'MyJDownloader is disabled'
+fi
+
+if [ "$ENABLE_LOG" = "true" ] ; then
+  echo 'Logging is enabled'
+else
+  echo 'Logging is disabled'
+fi
 
 # VNC default no password
 export X11VNC_AUTH="-nopw"

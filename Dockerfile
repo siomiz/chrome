@@ -19,7 +19,9 @@ RUN apt-get update \
 	&& apt-get install -y \
     python3 \
     python3-pip \
-    cron
+    cron \
+	npm \
+	nodejs
 
 ADD https://dl.google.com/linux/linux_signing_key.pub \
 	https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
