@@ -4,14 +4,23 @@ set -e
 PUID=${PUID:-911}
 PGID=${PGID:-911}
 export OUTPUT=${OUTPUT:-"/output"}
+echo "OUTPUT=${OUTPUT}"
 export OUT_LUSCIOUS=${OUT_LUSCIOUS:-"/output/luscious"}
+echo "OUT_LUSCIOUS=${OUT_LUSCIOUS}"
 export OUT_LITEROTICA=${OUT_LITEROTICA:-"/output/literotica"}
+echo "OUT_LITEROTICA=${OUT_LITEROTICA}"
 export JD_USER=$JD_USER:-""}
+echo "JD_USER=${JD_USER}"
 export JD_PASS=${JD_PASS:-""}
+echo "JD_PASS=${JD_PASS}"
 export JD_DEVICE=${JD_DEVICE:-""}
+echo "JD_DEVICE=${JD_DEVICE}"
 export ENABLE_JD=${ENABLE_JD:-"true"}
+echo "ENABLE_JD=${ENABLE_JD}"
 export ENABLE_LOG=${ENABLE_LOG:-"true"}
+echo "ENABLE_LOG=${ENABLE_LOG}"
 ENABLE_VNC=${ENABLE_VNC:-"false"}
+echo "ENABLE_VNC=${ENABLE_VNC}"
 
 # set uid and gid
 groupmod -o -g "$PGID" chrome
