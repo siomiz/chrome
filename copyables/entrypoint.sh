@@ -4,23 +4,23 @@ set -e
 PUID=${PUID:-911}
 PGID=${PGID:-911}
 export OUTPUT=${OUTPUT:-"/output"}
-echo "OUTPUT=${OUTPUT}"
+#echo "OUTPUT=${OUTPUT}"
 export OUT_LUSCIOUS=${OUT_LUSCIOUS:-"/output/luscious"}
-echo "OUT_LUSCIOUS=${OUT_LUSCIOUS}"
+#echo "OUT_LUSCIOUS=${OUT_LUSCIOUS}"
 export OUT_LITEROTICA=${OUT_LITEROTICA:-"/output/literotica"}
-echo "OUT_LITEROTICA=${OUT_LITEROTICA}"
+#echo "OUT_LITEROTICA=${OUT_LITEROTICA}"
 export JD_USER=${JD_USER:-""}
-echo "JD_USER=${JD_USER}"
+#echo "JD_USER=${JD_USER}"
 export JD_PASS=${JD_PASS:-""}
-echo "JD_PASS=${JD_PASS}"
+#echo "JD_PASS=${JD_PASS}"
 export JD_DEVICE=${JD_DEVICE:-""}
-echo "JD_DEVICE=${JD_DEVICE}"
+#echo "JD_DEVICE=${JD_DEVICE}"
 export ENABLE_JD=${ENABLE_JD:-"true"}
-echo "ENABLE_JD=${ENABLE_JD}"
-ENABLE_LOG=${ENABLE_LOG:-"true"}
-echo "ENABLE_LOG=${ENABLE_LOG}"
+#echo "ENABLE_JD=${ENABLE_JD}"
+export ENABLE_LOG=${ENABLE_LOG:-"true"}
+#echo "ENABLE_LOG=${ENABLE_LOG}"
 ENABLE_VNC=${ENABLE_VNC:-"false"}
-echo "ENABLE_VNC=${ENABLE_VNC}"
+#echo "ENABLE_VNC=${ENABLE_VNC}"
 
 # set uid and gid
 groupmod -o -g "$PGID" chrome
@@ -57,14 +57,14 @@ fi
 
 # VNC default no password
 export X11VNC_AUTH="-nopw"
-echo "X11VNC_AUTH set"
+#echo "X11VNC_AUTH set"
 
 # look for VNC password file in order (first match is used)
 passwd_files=(
   /home/chrome/.vnc/passwd
   /run/secrets/vncpasswd
   )
-echo "passwd_files set"
+#echo "passwd_files set"
 
 for passwd_file in ${passwd_files[@]}; do
   if [[ -f ${passwd_file} ]]; then
@@ -72,13 +72,13 @@ for passwd_file in ${passwd_files[@]}; do
     break
   fi
 done
-echo "passwd loop done"
+#echo "passwd loop done"
 
 # override above if VNC_PASSWORD env var is set (insecure!)
 if [[ "$VNC_PASSWORD" != "" ]]; then
   export X11VNC_AUTH="-passwd $VNC_PASSWORD"
 fi
-echo "exported new password"
+#echo "exported new password"
 
 # set sizes for both VNC screen & Chrome window
 : ${VNC_SCREEN_SIZE:='1024x768'}
