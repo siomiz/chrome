@@ -9,9 +9,9 @@ export OUT_LITEROTICA=${OUT_LITEROTICA:-"/output/literotica"}
 export JD_USER=$JD_USER:-""}
 export JD_PASS=${JD_PASS:-""}
 export JD_DEVICE=${JD_DEVICE:-""}
-export ENABLE_JD=${ENABLE_JD:-true}
-export ENABLE_LOG=${ENABLE_LOG:-true}
-ENABLE_VNC=${ENABLE_VNC:-false}
+export ENABLE_JD=${ENABLE_JD:-"true"}
+export ENABLE_LOG=${ENABLE_LOG:-"true"}
+ENABLE_VNC=${ENABLE_VNC:-"false"}
 
 # set uid and gid
 groupmod -o -g "$PGID" chrome
