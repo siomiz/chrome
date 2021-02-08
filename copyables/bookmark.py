@@ -14,6 +14,17 @@ jd_device = os.environ.get('JD_DEVICE')
 enable_jd = os.environ.get('ENABLE_JD')
 enable_log = os.environ.get('ENABLE_LOG')
 
+# convert environment variables from strings to bools
+if "true" in enable_jd:
+    enable_jd = True
+else:
+    enable_jd = False
+
+if "true" in enable_log:
+    enable_log = True
+else:
+    enable_log = False
+
 # Log run start
 if enable_log:
     logfile = open("lastrun.txt", "w")
