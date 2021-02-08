@@ -3,6 +3,12 @@ FROM ubuntu:18.04
 LABEL maintainer="npr0n"
 
 ENV VNC_SCREEN_SIZE 1024x768
+ENV OUTPUT /output
+ENV OUT_LUSCIOUS /output/luscious
+ENV OUT_LITEROTICA /output/literotica
+ENV ENABLE_JD false
+ENV ENABLE_LOG false
+ENV ENABLE_VNC false
 
 COPY copyables /
 
