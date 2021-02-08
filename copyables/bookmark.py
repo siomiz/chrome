@@ -27,7 +27,7 @@ else:
 
 # Log run start
 if enable_log:
-    logfile = open("lastrun.txt", "w")
+    logfile = open("/output/lastrun.txt", "w")
     logfile.write(f"Start : {datetime.datetime.now().strftime('%c')}")
     logfile.write(f"User  : {getpass.getuser()}")
     if enable_jd:
