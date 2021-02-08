@@ -110,5 +110,5 @@ for url in chrome_bookmarks.urls:
 
 # Log run finish
 if enable_log:
-    logfile.write(f"Finish: {datetime.datetime.now().strftime(%c)}")
+    logfile.write(f"Finish: {datetime.datetime.now().strftime('%c')}")
     logfile.close()
