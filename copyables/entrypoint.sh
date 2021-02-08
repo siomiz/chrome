@@ -48,24 +48,28 @@ fi
 
 # VNC default no password
 export X11VNC_AUTH="-nopw"
-
-# do nothing
-:
+echo "X11VNC_AUTH set"
 
 # look for VNC password file in order (first match is used)
-#passwd_files=(/home/chrome/.vnc/passwd /run/secrets/vncpasswd)
+passwd_files=(
+  /home/chrome/.vnc/passwd
+  /run/secrets/vncpasswd
+  )
+echo "passwd_files set"
 
-#for passwd_file in ${passwd_files[@]}; do
-#  if [[ -f ${passwd_file} ]]; then
-#    export X11VNC_AUTH="-rfbauth ${passwd_file}"
-#    break
-#  fi
-#done
+for passwd_file in ${passwd_files[@]}; do
+  if [[ -f ${passwd_file} ]]; then
+    export X11VNC_AUTH="-rfbauth ${passwd_file}"
+    break
+  fi
+done
+echo "passwd loop done"
 
 # override above if VNC_PASSWORD env var is set (insecure!)
 if [[ "$VNC_PASSWORD" != "" ]]; then
   export X11VNC_AUTH="-passwd $VNC_PASSWORD"
 fi
+echo "exported new password"
 
 # set sizes for both VNC screen & Chrome window
 : ${VNC_SCREEN_SIZE:='1024x768'}
