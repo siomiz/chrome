@@ -90,8 +90,10 @@ for url in chrome_bookmarks.urls:
     elif "literotica.com/" in url.url:
         # beta url rewrite
         if "/beta/s/" in url.url:
-            url.url = url.url.replace("/beta/s/", "/s/")
-        cmd = f"cd {out_literotica} && litero_getstory -u {url.url}"
+            url = url.url.replace("/beta/s/", "/s/")
+        else:
+            url = url.url
+        cmd = f"cd {out_literotica} && litero_getstory -u {url}"
     
     # Pornhub
     elif "pornhub.com/" in url.url:
