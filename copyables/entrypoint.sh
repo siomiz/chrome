@@ -50,7 +50,7 @@ fi
 export X11VNC_AUTH="-nopw"
 
 # look for VNC password file in order (first match is used)
-passwd_files=(/home/chrome/.vnc/passwd /run/secrets/vncpasswd)
+#passwd_files=(/home/chrome/.vnc/passwd /run/secrets/vncpasswd)
 
 for passwd_file in ${passwd_files[@]}; do
   if [[ -f ${passwd_file} ]]; then
