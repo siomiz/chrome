@@ -28,27 +28,27 @@ else:
 # Log run start
 if enable_log:
     logfile = open("/output/lastrun.txt", "w")
-    logfile.write(f"Start : {datetime.datetime.now().strftime('%c')}")
-    logfile.write(f"User  : {getpass.getuser()}")
+    logfile.write(f"\nStart : {datetime.datetime.now().strftime('%c')}")
+    logfile.write(f"\nUser  : {getpass.getuser()}")
     if enable_jd:
-        logfile.write(f"JDown.: {enable_jd}")
+        logfile.write(f"\nJDown.: {enable_jd}")
 
 # connect to jdownloader
 if enable_jd:
     # check if username present
     if not jd_user:
         if enable_log:
-            logfile.write(f"No MyJDownloader username given. Disabling JDownloader.")
+            logfile.write(f"\nNo MyJDownloader username given. Disabling JDownloader.")
         enable_jd = False
     # check if password present
     elif not jd_pass:
         if enable_log:
-            logfile.write(f"No MyJDownloader password given. Disabling JDownloader.")
+            logfile.write(f"\nNo MyJDownloader password given. Disabling JDownloader.")
         enable_jd = False
     # check if device name present
     elif not jd_device:
         if enable_log:
-            logfile.write(f"No MyJDownloader device given. Disabling JDownloader.")
+            logfile.write(f"\nNo MyJDownloader device given. Disabling JDownloader.")
         enable_jd = False
     else:
         # set up 
@@ -58,16 +58,18 @@ if enable_jd:
         if not jd.connect(jd_user, jd_pass):
             # connection failed:
             if enable_log:
-                logfile.write(f"MyJDownloader authentication failed. Disabling JDownloader.")
+                logfile.write(f"\nMyJDownloader authentication failed. Disabling JDownloader.")
                 enable_jd = False
         # connection worked, look for device name
         elif not jd.get_device(jd_device):
             # device name not online
             if enable_log:
-                logfile.write(f"MyJDownloader device not found. Disabling JDownloader.")
+                logfile.write(f"\nMyJDownloader device not found. Disabling JDownloader.")
                 enable_jd = False
         # connect to device / instance
         else:
+            if enable_log:
+                logfile.write(f"\nMyJDownloader authentication and connection successful.")
             jd_instance = jd.get_device(jd_device)
     # if anything failed: export ENV variable to skip this step next time
     if not enable_jd:
@@ -105,10 +107,10 @@ for url in chrome_bookmarks.urls:
     
     # Logging
     if enable_log:
-        logfile.write(f"Cmd:   : {cmd}")
+        logfile.write(f"\nCmd:   : {cmd}")
     subprocess.run(cmd, shell=True)
 
 # Log run finish
 if enable_log:
-    logfile.write(f"Finish: {datetime.datetime.now().strftime('%c')}")
+    logfile.write(f"\nFinish: {datetime.datetime.now().strftime('%c')}")
     logfile.close()
