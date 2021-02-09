@@ -59,7 +59,7 @@ RUN apt-get clean \
     && python3 -m pip install chrome-bookmarks luscious-downloader myjdapi \
 	&& npm install -g litero \
     && systemctl enable cron \
-    && su chrome -c "crontab /usercron; rm /usercron"
+    && su chrome -c "crontab ~/usercron; rm ~/usercron"
 
 VOLUME [ "/home/chrome" ]
 
