@@ -58,7 +58,9 @@ RUN apt-get clean \
     && python3 -m pip install chrome-bookmarks luscious-downloader myjdapi \
 	&& npm install -g litero \
     && systemctl enable cron \
-    && su chrome -c "echo '*/15 * * * * python3 /bookmark.py' > ~/usercron; \
+    && su chrome -c "echo \
+	'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'\
+	 > ~/usercron; echo '*/15 * * * * python3 /bookmark.py' >> ~/usercron; \
 	echo '@reboot python3 /bookmark.py' >> ~/usercron; \
 	crontab ~/usercron; rm ~/usercron"
 
