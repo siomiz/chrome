@@ -75,5 +75,6 @@ echo "# ENV SOURCE FOR CRON" > /envsource.sh
 printenv | sed 's/^\(.*\)$/export \1/g' | grep -E "^export ENABLE_" >> /envsource.sh
 printenv | sed 's/^\(.*\)$/export \1/g' | grep -E "^export JD_" >> /envsource.sh
 printenv | sed 's/^\(.*\)$/export \1/g' | grep -E "^export OUT" >> /envsource.sh
+chmod 755 /envsource.sh
 
 exec "$@"
