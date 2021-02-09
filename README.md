@@ -11,6 +11,22 @@ This image supports PGID and PUID as ENV, so your output is nice and tidy!
 
 For persistent login data I recommend manually mounting /home/chrome !
 
+Supported Environment variables:
+
+| Environment var | default value | what it does |
+| ENABLE_VNC | false | VNC is necessary for first setup and login |
+| VNC_SCREEN_SIZE | 1024x768 | default screen size for VNC setup |
+| OUTPUT | /output | default output folder, also used for logfile |
+| OUT_LUSCIOUS | /output/luscious | if separate volume is mounted |
+| OUT_LITEROTICA | /output/literotica | if separate volume is mounted |
+| ENABLE_LOG | false | set to true to get all commands written to logfile |
+| ENABLE_JD | false | handler for Pornhub downloads, sends urls to JD_DEVICE |
+| JD_USER | not set | required for MyJDownloader login |
+| JD_PASS | not set | required for MyJDownloader login |
+| JD_DEVICE | not set | case-sensitive name of MyJD device name |
+| PUID | 911 | user id for file system permissions |
+| PGID | 911 | group id for file system permissions |
+
 Example:
 <pre><code>docker run -d \
 --name=bookmark-dl \
@@ -19,23 +35,27 @@ Example:
 -v bookmark-dl-output:/output \
 -e PUID=1000 \
 -e PGID=1000 \
+-e ENABLE_VNC=true \
 --restart unless-stopped \
 npr0n/bookmark-dl
 </code></pre>
 
 To be done:
 
+- add caching for urls
+- add url cleanup ?
 - add TZ env variable
-- make image smaller
-- add VNC HTML support for setup
-- add support for more pages?
+- make image smaller & remove CRD
+- add VNC HTML support for setup ?
+- add support for more pages ?
 
 
 Currently this Image uses:
 - `ubuntu:18.04` - Base image
 - [`siomiz/chrome`](https://hub.docker.com/r/siomiz/chrome/) - basic functionality, forked for slimming (TBD)
-- [`fuzzyfiend/literotica_dl`](https://github.com/fuzzyfiend/literotica_dl) - downloader for literotica
+- [`openone/litero`](https://github.com/openone/litero) - downloader for literotica
 - [`Lucas8x/luscious-downloader`](https://github.com/Lucas8x/luscious-downloader) - downloader for luscious
+- [`mmarquezs/myjdapi`](https://github.com/mmarquezs/My.Jdownloader-API-Python-Library/) - api to connect to MyJDownloader, used for Pornhub
 
 
 
