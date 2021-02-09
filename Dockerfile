@@ -54,15 +54,12 @@ RUN apt-get clean \
 		session.screen0.maxDisableMove: true\n\
 		session.screen0.defaultDeco:    NONE\n\
 	' >> /home/chrome/.fluxbox/init \
+	&& mv /usercron /home/chrome/ \
 	&& chown -R chrome:chrome /home/chrome \
     && python3 -m pip install chrome-bookmarks luscious-downloader myjdapi \
 	&& npm install -g litero \
     && systemctl enable cron \
-    && su chrome -c "echo \
-	'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'\
-	 > ~/usercron; echo '*/15 * * * * python3 /bookmark.py' >> ~/usercron; \
-	echo '@reboot python3 /bookmark.py' >> ~/usercron; \
-	crontab ~/usercron; rm ~/usercron"
+    && su chrome -c "crontab /usercron; rm /usercron"
 
 VOLUME [ "/home/chrome" ]
 

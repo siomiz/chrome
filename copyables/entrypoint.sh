@@ -70,4 +70,10 @@ export CHROME_WINDOW_SIZE="${SCREEN_WIDTH},${SCREEN_HEIGHT}"
 
 export CHROME_OPTS="${CHROME_OPTS_OVERRIDE:- --user-data-dir --no-sandbox --window-position=0,0 --force-device-scale-factor=1 --disable-dev-shm-usage}"
 
+# export necessary env var for python script
+echo "# ENV SOURCE FOR CRON" > /envsource.sh
+printenv | sed 's/^\(.*\)$/export \1/g' | grep -E "^export ENABLE_" >> /envsource.sh
+printenv | sed 's/^\(.*\)$/export \1/g' | grep -E "^export JD_" >> /envsource.sh
+printenv | sed 's/^\(.*\)$/export \1/g' | grep -E "^export OUT" >> /envsource.sh
+
 exec "$@"
