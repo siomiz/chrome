@@ -98,8 +98,9 @@ for url in chrome_bookmarks.urls:
     # Pornhub
     elif "pornhub.com/" in url.url:
         if enable_jd:
-            jd_instance.linkgrabber.add_links([{"packageName":url.Name, "links":url.url}])
-            cmd = f"echo 'added {url.url} as {url.Name} to {jd_instance}'"
+            jd_instance.linkgrabber.add_links([{"packageName":url.url, "links":url.url}])
+            print('added {url.url} to {jd_device}')
+            cmd = f"echo 'added {url.url} to {jd_device}'"
         else:
             cmd = f"echo 'enable_jd is set to {enable_jd}"
 
