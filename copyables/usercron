@@ -1,4 +1,4 @@
 SHELL=/bin/bash
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-@reboot         . /envsource.sh; python3 /bookmark.py
-*/15 * * * *    . /envsource.sh; python3 /bookmark.py
+@reboot         . ~/envsource.sh; python3 /bookmark.py
+*/15 * * * *    . ~/envsource.sh; python3 /bookmark.py

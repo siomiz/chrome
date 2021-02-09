@@ -75,6 +75,8 @@ echo "# ENV SOURCE FOR CRON" > /envsource.sh
 printenv | sed 's/^\(.*\)$/export \1/g' | grep -E "^export ENABLE_" >> /envsource.sh
 printenv | sed 's/^\(.*\)$/export \1/g' | grep -E "^export JD_" >> /envsource.sh
 printenv | sed 's/^\(.*\)$/export \1/g' | grep -E "^export OUT" >> /envsource.sh
-chmod 755 /envsource.sh
+cp /envsource.sh /home/chrome
+chown chrome:chrome /home/chrome/envsource.sh
+chmod +x /home/chrome/envsource.sh
 
 exec "$@"
