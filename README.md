@@ -1,5 +1,3 @@
- - The testing branch for [RandR](https://en.wikipedia.org/wiki/RandR) (i.e. "Resize desktop to fit" in CRD client) is merged into master/latest.
-
 Google Chrome via VNC
 ==
 `docker run -p 127.0.0.1:5900:5900 siomiz/chrome`
@@ -12,8 +10,6 @@ Must agree to [Google Chrome ToS][1] to use.
 
 Google Chrome via Chrome Remote Desktop
 ==
-... so you can use the full Google Chrome with Flash on iPad (with preliminary sound support)!
-Much faster than VNC thanks to VP8!
 
 Prerequisite: Create a Profile Volume
 --
@@ -31,13 +27,9 @@ Usage
 `docker run -d --volumes-from chrome-profile siomiz/chrome /crdonly` (no port needs to be exposed)
 `/crdonly` command will run chrome-remote-desktop in foreground.
 
-Docker ホスト(ヘッドレス可！)で走らせれば、「艦これ」等 Flash ブラウザゲームを iPad/iPhone/Android 等上の Chrome リモート デスクトップ アプリで一応プレイ可能になります。サウンド付き(遅延があります)。
-Chrome は英語版ですが、Web ページ用の日本語フォントは含まれています。[詳しくはこちら。][3]
-
 Chrome Updates
 --
 It is recommended to `docker pull siomiz/chrome` and restart the container once in a while to update chrome & crd inside (they will not get automatically updated). Optionally you can run `docker exec <chrome-container> update` to upgrade only google-chrome-stable from outside the container (exit Chrome inside CRD after upgrading).
 
   [1]: https://www.google.com/intl/en/chrome/browser/privacy/eula_text.html
   [2]: https://code.google.com/p/chromium/issues/detail?id=490964
-  [3]: https://github.com/siomiz/chrome/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E
