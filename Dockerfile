@@ -17,12 +17,12 @@ RUN apt-get update \
 	eterm
 
 ADD https://dl.google.com/linux/linux_signing_key.pub \
-	https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
+	https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_87.0.4280.88-1_amd64.deb \
 	https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.deb \
 	/tmp/
 
 RUN apt-key add /tmp/linux_signing_key.pub \
-	&& dpkg -i /tmp/google-chrome-stable_current_amd64.deb \
+	&& dpkg -i /tmp/google-chrome-stable_87.0.4280.88-1_amd64.deb \
 	|| dpkg -i /tmp/chrome-remote-desktop_current_amd64.deb \
 	|| apt-get -f --yes install
 
