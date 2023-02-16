@@ -1,17 +1,19 @@
 name: Docker Image CI/CD
 
 on:
+  workflow_dispatch:
   push:
-    branches: [ "master" ]
+    branches:
+      - 'master'
+    tags:
+      - '*'
   pull_request:
-    branches: [ "master" ]
+    branches:
+      - 'master'
 
 jobs:
-
-  build:
-
+  docker:
     runs-on: ubuntu-latest
-
     steps:
       -
         name: Checkout
