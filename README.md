@@ -1,8 +1,10 @@
+_:new: Recent update made `chrome` the running USER. Chrome profile must be owned by user `chrome` so you may need to run `docker exec --volumes-from <your-chrome-profile> --user root siomiz/chrome chown -R chrome:chrome /home/chrome` to fix permission issues._
+
 Google Chrome via VNC
 ==
 `docker run -p 127.0.0.1:5900:5900 siomiz/chrome`
 
- - Google Chrome, not Chromium, for the ease of Flash plugin management
+ - Google Chrome, ~~not Chromium, for the ease of Flash plugin management~~
  - on Xvfb, with FluxBox (no window decorations)
  - served by X11VNC (no password; assuming usage via SSH)
 
@@ -29,7 +31,7 @@ Usage
 
 Chrome Updates
 --
-It is recommended to `docker pull siomiz/chrome` and restart the container once in a while to update chrome & crd inside (they will not get automatically updated). Optionally you can run `docker exec <chrome-container> update` to upgrade only google-chrome-stable from outside the container (exit Chrome inside CRD after upgrading).
+It is recommended to `docker pull siomiz/chrome` and restart the container once in a while to update chrome & crd inside (they will not get automatically updated). Optionally you can run `docker exec --user=root <chrome-container> update` to upgrade only google-chrome-stable from outside the container (exit Chrome inside CRD after upgrading).
 
   [1]: https://www.google.com/intl/en/chrome/browser/privacy/eula_text.html
   [2]: https://code.google.com/p/chromium/issues/detail?id=490964

@@ -1,5 +1,10 @@
 #!/bin/bash
-set -e
+# set -e
+
+if [ "$EUID" -ne 0 ]; then
+	echo '"update" needs root; use `--user=root` on `docker exec`'
+	exit -1
+fi
 
 apt-get update -qq \
 	-o Dir::Etc::sourcelist="sources.list.d/google-chrome.list" \
@@ -8,11 +13,13 @@ apt-get update -qq \
 
 for pkg in "google-chrome-stable"; do
 
-        IFS=": " read -r p i iv c cv x <<< $(apt-cache policy $pkg)
+	read -r -d '' _ iv _ cv _ <<< $(apt-cache policy $pkg | awk '{ print $2 }')
 
-        if [ "$iv" != "$cv" ]; then
-                apt-get install --only-upgrade -y -qq $pkg
-                echo $pkg upgraded to $cv
-        fi
+	if [ "$iv" != "$cv" ]; then
+		apt-get install --only-upgrade -y -qq $pkg
+		echo $pkg upgraded to $cv
+	else
+		echo $pkg $iv is latest
+	fi
 
 done

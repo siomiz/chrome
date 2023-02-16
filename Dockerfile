@@ -1,13 +1,15 @@
-FROM ubuntu:18.04
+FROM ubuntu:22.04
 
 LABEL maintainer="Tomohisa Kusano <siomiz@gmail.com>"
 
-ENV VNC_SCREEN_SIZE 1024x768
+ENV VNC_SCREEN_SIZE=1024x768
 
 COPY copyables /
 
 RUN apt-get update \
-	&& apt-get install -y --no-install-recommends \
+	&& DEBIAN_FRONTEND=noninteractive apt-get upgrade -y \
+	&& DEBIAN_FRONTEND=noninteractive \
+	apt-get install -y --no-install-recommends \
 	gnupg2 \
 	fonts-noto-cjk \
 	pulseaudio \
@@ -24,7 +26,7 @@ ADD https://dl.google.com/linux/linux_signing_key.pub \
 RUN apt-key add /tmp/linux_signing_key.pub \
 	&& dpkg -i /tmp/google-chrome-stable_current_amd64.deb \
 	|| dpkg -i /tmp/chrome-remote-desktop_current_amd64.deb \
-	|| apt-get -f --yes install
+	|| DEBIAN_FRONTEND=noninteractive apt-get -f --yes install
 
 RUN apt-get clean \
 	&& rm -rf /var/cache/* /var/log/apt/* /var/lib/apt/lists/* /tmp/* \
@@ -43,7 +45,11 @@ RUN apt-get clean \
 	' >> /home/chrome/.fluxbox/init \
 	&& chown -R chrome:chrome /home/chrome/.config /home/chrome/.fluxbox
 
+USER chrome
+
 VOLUME ["/home/chrome"]
+
+WORKDIR /home/chrome
 
 EXPOSE 5900
 
