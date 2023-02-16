@@ -15,11 +15,11 @@ for pkg in "google-chrome-stable"; do
 
 	read -r -d '' _ iv _ cv _ <<< $(apt-cache policy $pkg | awk '{ print $2 }')
 
-        if [ "$iv" != "$cv" ]; then
-                apt-get install --only-upgrade -y -qq $pkg
-                echo $pkg upgraded to $cv
+	if [ "$iv" != "$cv" ]; then
+		apt-get install --only-upgrade -y -qq $pkg
+		echo $pkg upgraded to $cv
 	else
 		echo $pkg $iv is latest
-        fi
+	fi
 
 done
