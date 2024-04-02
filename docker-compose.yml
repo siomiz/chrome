@@ -1,0 +1,18 @@
+version: '3.9'
+
+services:
+  chrome-docker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      VNC_SCREEN_SIZE: 1024x768
+      VNC_PASSWORD: your_password
+    volumes:
+      - chrome_data:/home/chrome
+    ports:
+      - "5900:5900"
+    restart: unless-stopped
+
+volumes:
+  chrome_data:
